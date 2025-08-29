@@ -1,0 +1,251 @@
+// Import Glide.js core styles
+@import "glide-core";
+@import "glide-theme";
+
+// PostImageCarousel Component Styles
+.PostImageCarousel {
+  margin: 15px 0;
+  position: relative;
+  
+  // Single image display (no carousel needed)
+  &--single {
+    .PostImageCarousel-image {
+      text-align: center;
+      
+      .PostImageCarousel-img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 6px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        transition: transform 0.2s ease;
+        
+        &:hover {
+          transform: scale(1.02);
+        }
+      }
+    }
+  }
+  
+  // Multiple images carousel
+  &--multiple {
+    .glide {
+      background: var(--body-bg);
+      border-radius: 8px;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      position: relative;
+    }
+    
+    .glide__track {
+      border-radius: 8px 8px 0 0;
+    }
+    
+    .glide__slide {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 200px;
+      background: var(--body-bg);
+    }
+    
+    .PostImageCarousel-imageContainer {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .PostImageCarousel-img {
+      max-width: 100%;
+      max-height: 500px;
+      height: auto;
+      object-fit: contain;
+      transition: opacity 0.3s ease;
+      
+      &[loading] {
+        opacity: 0.7;
+      }
+    }
+    
+    // Navigation arrows
+    .PostImageCarousel-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0, 0, 0, 0.6);
+      color: white;
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      z-index: 10;
+      transition: all 0.2s ease;
+      
+      &:hover {
+        background: rgba(0, 0, 0, 0.8);
+        transform: translateY(-50%) scale(1.1);
+      }
+      
+      &:focus {
+        outline: 2px solid var(--primary-color);
+        outline-offset: 2px;
+      }
+      
+      &--prev {
+        left: 15px;
+      }
+      
+      &--next {
+        right: 15px;
+      }
+      
+      // Hide on very small screens
+      @media (max-width: 480px) {
+        width: 35px;
+        height: 35px;
+        font-size: 12px;
+        
+        &--prev {
+          left: 10px;
+        }
+        
+        &--next {
+          right: 10px;
+        }
+      }
+    }
+    
+    // Bullet navigation
+    .PostImageCarousel-bullets {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 15px;
+      gap: 8px;
+      background: var(--body-bg);
+      border-radius: 0 0 8px 8px;
+    }
+    
+    .PostImageCarousel-bullet {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--muted-color);
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      
+      &:hover {
+        background: var(--muted-more-color);
+        transform: scale(1.2);
+      }
+      
+      &.glide__bullet--active {
+        background: var(--primary-color);
+        transform: scale(1.3);
+      }
+      
+      &:focus {
+        outline: 2px solid var(--primary-color);
+        outline-offset: 2px;
+      }
+    }
+    
+    // Image counter
+    .PostImageCarousel-counter {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
+      padding: 5px 12px;
+      border-radius: 15px;
+      font-size: 12px;
+      font-weight: 500;
+      z-index: 10;
+      
+      .PostImageCarousel-separator {
+        opacity: 0.7;
+      }
+    }
+  }
+  
+  // Loading states
+  .PostImageCarousel-img[loading] {
+    animation: pulse 1.5s infinite;
+  }
+  
+  @keyframes pulse {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 0.9; }
+  }
+  
+  // Responsive breakpoints
+  @media (max-width: 768px) {
+    margin: 10px -15px; // Extend to edges on mobile
+    
+    &--multiple {
+      .glide {
+        border-radius: 0;
+      }
+      
+      .PostImageCarousel-img {
+        max-height: 300px;
+      }
+      
+      .PostImageCarousel-counter {
+        top: 10px;
+        right: 10px;
+        font-size: 11px;
+        padding: 4px 10px;
+      }
+    }
+  }
+  
+  @media (max-width: 480px) {
+    &--multiple {
+      .PostImageCarousel-img {
+        max-height: 250px;
+      }
+      
+      .PostImageCarousel-bullets {
+        padding: 10px;
+        gap: 6px;
+      }
+      
+      .PostImageCarousel-bullet {
+        width: 6px;
+        height: 6px;
+      }
+    }
+  }
+  
+  // Dark theme support
+  @media (prefers-color-scheme: dark) {
+    &--single .PostImageCarousel-img {
+      box-shadow: 0 2px 8px rgba(255, 255, 255, 0.1);
+    }
+    
+    &--multiple .glide {
+      box-shadow: 0 2px 12px rgba(255, 255, 255, 0.05);
+    }
+  }
+}
+
+// Hide placeholder during processing
+.PostImageCarousel-placeholder {
+  display: none !important;
+}
+
+// Ensure carousel container is properly displayed
+.PostImageCarousel-container {
+  display: block;
+  width: 100%;
+}
