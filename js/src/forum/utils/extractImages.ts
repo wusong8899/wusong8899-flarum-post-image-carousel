@@ -166,9 +166,10 @@ export function replaceImagesWithPlaceholder(images: HTMLImageElement[], placeho
       
       // Check next sibling for br tags to remove
       let nextSibling = current.nextSibling;
-      while (nextSibling && 
+      while (nextSibling && (
              (nextSibling.nodeType === Node.TEXT_NODE && (nextSibling.textContent?.trim() === '')) ||
-             (nextSibling.nodeType === Node.ELEMENT_NODE && (nextSibling as HTMLElement).tagName.toLowerCase() === 'br')) {
+             (nextSibling.nodeType === Node.ELEMENT_NODE && (nextSibling as HTMLElement).tagName.toLowerCase() === 'br')
+           )) {
         const nodeToRemove = nextSibling;
         nextSibling = nextSibling.nextSibling;
         if (nodeToRemove.nodeType === Node.ELEMENT_NODE) {
