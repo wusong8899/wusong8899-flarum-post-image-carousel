@@ -1,39 +1,41 @@
 {
-    "name": "@wusong8899/flarum-post-image-carousel",
-    "private": true,
-    "version": "1.0.0",
-    "description": "Flarum extension that displays post images in a carousel",
-    "keywords": [
-        "flarum",
-        "extension",
-        "carousel",
-        "images",
-        "fof-upload"
-    ],
-    "dependencies": {
-        "@glidejs/glide": "^3.6.2"
-    },
-    "devDependencies": {
-        "@types/jquery": "^3.5.32",
-        "@types/mithril": "^2.2.7",
-        "@types/node": "^24.0.0",
-        "flarum-tsconfig": "^1.0.0",
-        "oxlint": "^1.11.2",
-        "prettier": "^3.0.0",
-        "typescript": "^5.0.0",
-        "vite": "^7.1.2",
-        "vite-plugin-oxlint": "^1.4.0"
-    },
-    "scripts": {
-        "dev": "vite -c vite.config.admin.mts build --watch --mode development",
-        "dev:forum": "vite -c vite.config.forum.mts build --watch --mode development",
-        "build": "vite -c vite.config.admin.mts build --mode production && vite -c vite.config.forum.mts build --mode production",
-        "lint": "oxlint .",
-        "lint:fix": "oxlint . --fix",
-        "format": "prettier --write src",
-        "format-check": "prettier --check src"
-    },
-    "engines": {
-        "node": ">=16.0.0"
-    }
+  "name": "@wusong8899/flarum-post-image-carousel",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Flarum extension that displays post images in a carousel",
+  "keywords": [
+    "flarum",
+    "extension",
+    "carousel",
+    "images",
+    "fof-upload"
+  ],
+  "dependencies": {
+    "@glidejs/glide": "^3.6.2"
+  },
+  "devDependencies": {
+    "@types/jquery": "^3.5.32",
+    "@types/mithril": "^2.2.7",
+    "@types/node": "^24.0.0",
+    "flarum-tsconfig": "^1.0.0",
+    "oxlint": "^1.11.2",
+    "prettier": "^3.0.0",
+    "typescript": "^5.0.0",
+    "vite": "^7.1.2",
+    "vite-plugin-oxlint": "^1.4.0"
+  },
+  "scripts": {
+    "dev": "vite -c vite.config.admin.mts build --mode development && vite -c vite.config.forum.mts build --mode development",
+    "dev:admin": "vite -c vite.config.admin.mts build --mode development",
+    "dev:forum": "vite -c vite.config.forum.mts build --mode development",
+    "dev:watch": "vite -c vite.config.admin.mts build --watch --mode development && vite -c vite.config.forum.mts build --watch --mode development",
+    "build": "vite -c vite.config.admin.mts build --mode production && vite -c vite.config.forum.mts build --mode production",
+    "lint": "oxlint .",
+    "lint:fix": "oxlint . --fix",
+    "format": "prettier --write src",
+    "format-check": "prettier --check src"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
 }
