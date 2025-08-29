@@ -1,6 +1,30 @@
 {
-  "rules": {
-    "@typescript-eslint/no-unused-vars": "error",
-    "no-console": "warn"
-  }
+    // Oxlint configuration for the js/ workspace
+    // See .augment/rules/oxlint.md for policy
+    "ignorePatterns": [
+        "dist/**",
+        "node_modules/**",
+        "dist-typings/**"
+    ],
+    "categories": {
+        // Be strict about correctness; warn for suspicious patterns in legacy code
+        "correctness": "error",
+        "suspicious": "warn"
+    },
+    "rules": {
+        "no-console": "off"
+    },
+    "overrides": [
+        {
+            // TypeScript specific tweaks if needed later
+            "files": [
+                "**/*.ts",
+                "**/*.tsx"
+            ],
+            "plugins": [
+                "typescript"
+            ],
+            "rules": {}
+        }
+    ]
 }

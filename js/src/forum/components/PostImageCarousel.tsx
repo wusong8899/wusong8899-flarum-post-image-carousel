@@ -19,6 +19,7 @@ export interface PostImageCarouselAttrs extends ComponentAttrs {
 export default class PostImageCarousel extends Component<PostImageCarouselAttrs> {
   private glideInstance: Glide | null = null;
   private carouselId: string;
+  private currentIndex = 1;
   
   oninit(vnode: any) {
     super.oninit(vnode);
@@ -106,7 +107,7 @@ export default class PostImageCarousel extends Component<PostImageCarouselAttrs>
         </div>
         
         <div className="PostImageCarousel-counter">
-          <span className="PostImageCarousel-current">1</span>
+          <span className="PostImageCarousel-current">{this.currentIndex}</span>
           <span className="PostImageCarousel-separator"> / </span>
           <span className="PostImageCarousel-total">{images.length}</span>
         </div>
@@ -197,9 +198,7 @@ export default class PostImageCarousel extends Component<PostImageCarouselAttrs>
   private updateCounter() {
     if (!this.glideInstance) return;
     
-    const currentElement = document.querySelector(`#${this.carouselId} .PostImageCarousel-current`);
-    if (currentElement) {
-      currentElement.textContent = String(this.glideInstance.index + 1);
-    }
+    this.currentIndex = this.glideInstance.index + 1;
+    m.redraw();
   }
 }
