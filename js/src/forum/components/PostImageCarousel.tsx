@@ -1,6 +1,5 @@
 import Component, { ComponentAttrs } from 'flarum/common/Component';
 import Glide, { Options } from '@glidejs/glide';
-import m from 'mithril';
 
 export interface ImageData {
   src: string;
@@ -19,8 +18,7 @@ export interface PostImageCarouselAttrs extends ComponentAttrs {
 export default class PostImageCarousel extends Component<PostImageCarouselAttrs> {
   private glideInstance: Glide | null = null;
   private carouselId: string;
-  private currentIndex = 1;
-  
+
   oninit(vnode: any) {
     super.oninit(vnode);
     this.carouselId = `post-carousel-${Math.random().toString(36).substr(2, 9)}`;
@@ -39,10 +37,10 @@ export default class PostImageCarousel extends Component<PostImageCarouselAttrs>
       return (
         <div className="PostImageCarousel PostImageCarousel--single">
           <div className="PostImageCarousel-image">
-            <img 
-              src={image.src} 
-              alt={image.alt || ''} 
-              title={image.title || ''} 
+            <img
+              src={image.src}
+              alt={image.alt || ''}
+              title={image.title || ''}
               loading="lazy"
               className="PostImageCarousel-img"
             />
@@ -72,18 +70,18 @@ export default class PostImageCarousel extends Component<PostImageCarouselAttrs>
               ))}
             </ul>
           </div>
-          
+
           {showArrows && images.length > 1 && (
             <div className="glide__arrows" data-glide-el="controls">
-              <button 
-                className="glide__arrow glide__arrow--left PostImageCarousel-arrow PostImageCarousel-arrow--prev" 
+              <button
+                className="glide__arrow glide__arrow--left PostImageCarousel-arrow PostImageCarousel-arrow--prev"
                 data-glide-dir="<"
                 aria-label="Previous image"
               >
                 <i className="fas fa-chevron-left" aria-hidden="true"></i>
               </button>
-              <button 
-                className="glide__arrow glide__arrow--right PostImageCarousel-arrow PostImageCarousel-arrow--next" 
+              <button
+                className="glide__arrow glide__arrow--right PostImageCarousel-arrow PostImageCarousel-arrow--next"
                 data-glide-dir=">"
                 aria-label="Next image"
               >
@@ -95,8 +93,8 @@ export default class PostImageCarousel extends Component<PostImageCarouselAttrs>
           {showBullets && images.length > 1 && (
             <div className="glide__bullets PostImageCarousel-bullets" data-glide-el="controls[nav]">
               {images.map((_, index) => (
-                <button 
-                  className="glide__bullet PostImageCarousel-bullet" 
+                <button
+                  className="glide__bullet PostImageCarousel-bullet"
                   data-glide-dir={`=${index}`}
                   key={`bullet-${index}`}
                   aria-label={`Go to image ${index + 1}`}
@@ -105,19 +103,13 @@ export default class PostImageCarousel extends Component<PostImageCarouselAttrs>
             </div>
           )}
         </div>
-        
-        <div className="PostImageCarousel-counter">
-          <span className="PostImageCarousel-current">{this.currentIndex}</span>
-          <span className="PostImageCarousel-separator"> / </span>
-          <span className="PostImageCarousel-total">{images.length}</span>
-        </div>
       </div>
     );
   }
 
   oncreate(vnode: any) {
     super.oncreate(vnode);
-    
+
     if (this.attrs.images && this.attrs.images.length > 1) {
       this.initializeGlide();
     }
@@ -125,7 +117,7 @@ export default class PostImageCarousel extends Component<PostImageCarouselAttrs>
 
   onupdate(vnode: any) {
     super.onupdate(vnode);
-    
+
     // Reinitialize if images changed
     if (this.glideInstance && this.attrs.images && this.attrs.images.length > 1) {
       this.destroyGlide();
@@ -170,14 +162,8 @@ export default class PostImageCarousel extends Component<PostImageCarouselAttrs>
 
     try {
       this.glideInstance = new Glide(`#${this.carouselId}`, config);
-      
-      // Add event listeners for counter update
-      this.glideInstance.on(['mount.after', 'run'], () => {
-        this.updateCounter();
-      });
 
       this.glideInstance.mount();
-      this.updateCounter();
     } catch (error) {
       console.error('Failed to initialize Glide carousel:', error);
     }
@@ -195,10 +181,4 @@ export default class PostImageCarousel extends Component<PostImageCarouselAttrs>
     }
   }
 
-  private updateCounter() {
-    if (!this.glideInstance) return;
-    
-    this.currentIndex = this.glideInstance.index + 1;
-    m.redraw();
-  }
 }

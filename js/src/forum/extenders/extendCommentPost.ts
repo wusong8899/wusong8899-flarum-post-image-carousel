@@ -1,4 +1,4 @@
-import { extend, override } from 'flarum/common/extend';
+import { extend } from 'flarum/common/extend';
 import CommentPost from 'flarum/forum/components/CommentPost';
 import PostImageCarousel from '../components/PostImageCarousel';
 import { processPostImages, ImageGroup } from '../utils/extractImages';
@@ -10,7 +10,7 @@ import app from 'flarum/forum/app';
  */
 export default function extendCommentPost() {
   // Override the oncreate method to process images after DOM creation
-  extend(CommentPost.prototype, 'oncreate', function (vnode: any) {
+  extend(CommentPost.prototype, 'oncreate', function (_vnode: any) {
     // Wait for next tick to ensure DOM is fully rendered
     setTimeout(() => {
       this.processPostImages();
@@ -18,7 +18,7 @@ export default function extendCommentPost() {
   });
 
   // Also process on updates in case post content changes
-  extend(CommentPost.prototype, 'onupdate', function (vnode: any) {
+  extend(CommentPost.prototype, 'onupdate', function (_vnode: any) {
     setTimeout(() => {
       this.processPostImages();
     }, 10);
@@ -85,7 +85,7 @@ export default function extendCommentPost() {
   };
 
   // Clean up on component removal
-  extend(CommentPost.prototype, 'onremove', function (vnode: any) {
+  extend(CommentPost.prototype, 'onremove', function (_vnode: any) {
     // Cleanup any Mithril rendered carousels
     const carouselContainers = this.element?.querySelectorAll('.PostImageCarousel-container');
     if (carouselContainers) {
