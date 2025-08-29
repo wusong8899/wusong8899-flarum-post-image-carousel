@@ -1,5 +1,6 @@
 import Component, { ComponentAttrs } from 'flarum/common/Component';
 import Glide, { Options } from '@glidejs/glide';
+import m from 'mithril';
 
 export interface ImageData {
   src: string;
